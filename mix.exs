@@ -38,6 +38,10 @@ defmodule PhoenixOratoryApi.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
+     {:joken, "~> 1.1"},
+     {:libsodium, "~> 0.0.3"},
+     {:keccakf1600, "~> 0.0.1"},
+     {:libdecaf, "~> 0.0.1"},
      {:comeonin, "~>2.0"}]
   end
 
