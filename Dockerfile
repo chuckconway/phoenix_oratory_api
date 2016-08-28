@@ -11,7 +11,7 @@ EXPOSE $PORT
 
 # Cache elixir deps
 #ADD mix.exs mix.lock ./
-#RUN mix do deps.get, deps.compile
+RUN mix do deps.get, deps.compile
 
 # Same with npm deps
 #ADD package.json package.json
@@ -20,8 +20,8 @@ EXPOSE $PORT
 #ADD . .
 
 # Run frontend build, compile, and digest assets
-#RUN mix do compile, phoenix.digest
+RUN mix do compile, phoenix.digest
 
 USER default
 
-CMD ["mix", "phoenix.server"]
+CMD ["/var/www/mix", "phoenix.server"]
