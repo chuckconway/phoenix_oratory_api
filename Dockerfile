@@ -1,27 +1,15 @@
-FROM bitwalker/alpine-elixir-phoenix:latest
+FROM elixir:1.3.2
 
 # Set exposed ports
-EXPOSE 4000
-ENV PORT=4000 MIX_ENV=dev
+ENV PORT=4000 MIX_ENV=dev DEBIAN_FRONTEND=noninteractive
 
-COPY . /var/www
-WORKDIR /var/www
+RUN mix local.hex --force
+RUN mix local.rebar --force
 
-EXPOSE $PORT
+RUN mix archive.install --force https://github.com/phoenixframework/archives/raw/master/phoenix_new.ez
 
-# Cache elixir deps
-#ADD mix.exs mix.lock ./
-RUN mix do deps.get, deps.compile
 
-# Same with npm deps
-#ADD package.json package.json
-#RUN npm install
+WORKDIR /app
+ADD . /app
 
-#ADD . .
-
-# Run frontend build, compile, and digest assets
-RUN mix do compile, phoenix.digest
-
-USER default
-
-CMD ["/var/www/mix", "phoenix.server"]
+CMD ["mix", "phoenix.server"]
